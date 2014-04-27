@@ -77,17 +77,129 @@ module Puppet
       ]
     end
 
-    parameter :domain
-    parameter :name
-    parameter :jmsmodule
-    parameter :imported_destination_name
-    property  :errorhandling
-    property  :remotecontext
-    property  :jndiprefix
-    property  :timetolivedefault
-    property  :usetimetolivedefault
-    property  :defaulttargeting
-    property  :subdeployment
+    newparam(:domain) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Domain name"
+    
+      defaultto 'default'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['domain']
+      end
+    
+    end
+    newparam(:name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      desc "The SAF imported destination name"
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['name']
+      end
+    
+    end
+    newparam(:jmsmodule) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The JMS module name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['jmsmodule']
+      end
+    
+    end
+    newparam(:imported_destination_name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "SAF imported destination name"
+    
+    end
+    newproperty(:errorhandling) do
+      include EasyType
+    
+      desc "the SAF Error Handling of this SAF imported destination"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['errorhandling']
+      end
+    
+    end
+    newproperty(:remotecontext) do
+      include EasyType
+    
+      desc "the SAF Remote Context of this SAF imported destination"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['remotecontext']
+      end
+    
+    end
+    newproperty(:jndiprefix) do
+      include EasyType
+    
+      desc "the SAF JNDI prefix of this SAF imported destination"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['jndiprefix']
+      end
+    
+    end
+    newproperty(:timetolivedefault) do
+      include EasyType
+    
+      desc "the SAF time to live default of this SAF imported destination"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['timetolivedefault']
+      end
+    
+    end
+    newproperty(:usetimetolivedefault) do
+      include EasyType
+    
+      desc "use time to live default of this SAF imported destination"
+    
+      newvalues(1, 0)
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['usetimetolivedefault']
+      end
+    
+    end
+    newproperty(:defaulttargeting) do
+      include EasyType
+    
+      desc "default targeting enabled"
+      newvalues(1, 0)
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['defaulttargeting']
+      end
+    
+    end
+    newproperty(:subdeployment) do
+      include EasyType
+    
+      desc "The subdeployment name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['subdeployment']
+      end
+    
+    end
 
    end
 end

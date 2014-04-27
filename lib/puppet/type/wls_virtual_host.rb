@@ -76,12 +76,73 @@ module Puppet
       ]
     end
 
-    parameter :domain
-    parameter :name
-    parameter :virtual_host_name
-    property  :channel
-    property  :target
-    property  :targettype
+    newparam(:domain) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Domain name"
+    
+      defaultto 'default'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['domain']
+      end
+    
+    end
+    newparam(:name) do
+      include EasyType
+    
+      desc "The server channel name"
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['name']
+      end
+    
+    end
+    newparam(:virtual_host_name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The virtual host name"
+    
+    
+    end
+    newproperty(:channel) do
+      include EasyType
+    
+      desc "Server channel name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['channelname']
+      end
+    
+    end
+    newproperty(:target) do
+      include EasyType
+    
+      desc "The target name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['target']
+      end
+    
+    end
+    newproperty(:target) do
+      include EasyType
+    
+      desc "The target name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['target']
+      end
+    
+    end
 
   end
 end

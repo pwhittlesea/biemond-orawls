@@ -77,13 +77,93 @@ module Puppet
       ]
     end
 
-    parameter :domain
-    parameter :name
-    parameter :machine_name
+    newparam(:domain) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Domain name"
+    
+      defaultto 'default'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['domain']
+      end
+    
+    end
+    newparam(:name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      desc "The machine name"
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['name']
+      end
+    
+    end
+    newparam(:machine_name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The machine name"
+    
+    end
 
-    property  :machinetype
-    property  :nmtype
-    property  :listenaddress
-    property  :listenport
+    newproperty(:machinetype) do
+      include EasyType
+    
+    
+      desc "The machine type"
+      defaultto 'UnixMachine'
+    
+      newvalues(:Machine, :UnixMachine)
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['machinetype']
+      end
+    
+    end
+    newproperty(:nmtype) do
+      include EasyType
+    
+      desc "The nmtype of the machine"
+      defaultto 'SSL'
+    
+      newvalues(:SSL, :Plain, :SSH, :RSH)
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['nmtype']
+      end
+    
+    end
+    newproperty(:listenaddress) do
+      include EasyType
+    
+      desc "The listenaddress of the machine"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['listenaddress']
+      end
+    
+    end
+    newproperty(:listenport) do
+      include EasyType
+      include EasyType::Mungers::Integer
+    
+      desc "The listenport of the machine"
+      defaultto 5556
+    
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['listenport'].to_f.to_i
+      end
+    
+    end
   end
 end

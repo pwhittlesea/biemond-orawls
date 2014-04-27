@@ -14,12 +14,71 @@ module Puppet
       resources_from_yaml
     end
 
-    parameter :name
-    property  :user
-    property  :weblogic_home_dir
-    property  :weblogic_user
-    property  :connect_url
-    property  :weblogic_password
+    newparam(:name) do
+      include EasyType
+    
+      desc "The name of the setting"
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource[self.name]
+      end
+    
+    end
+    newproperty(:user) do
+      include EasyType
+    
+      desc "Operating System user"
+      defaultto 'oracle'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource[self.name]
+      end
+    
+    end
+    newproperty(:weblogic_home_dir) do
+      include EasyType
+    
+      desc "The WLS homedir"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource[self.name]
+      end
+    
+    end
+    newproperty(:weblogic_user) do
+      include EasyType
+    
+      desc "the weblogic user account "
+      defaultto 'weblogic'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource[self.name]
+      end
+    
+    end
+    newproperty(:connect_url) do
+      include EasyType
+    
+      desc "The url to connect to"
+      defaultto 't3://localhost:7001'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource[self.name]
+      end
+    
+    end
+    newproperty(:weblogic_password) do
+      include EasyType
+    
+      desc "TODO: Fill in the description"
+      defaultto 'weblogic1'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource[self.name]
+      end
+    end
 
     def self.configuration
       @configuration

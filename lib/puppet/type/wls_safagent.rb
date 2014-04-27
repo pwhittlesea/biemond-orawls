@@ -75,14 +75,97 @@ module Puppet
       ]
     end
 
-    parameter :domain
-    parameter :name
-    parameter :safagent_name
-    property  :servicetype
-    property  :persistentstore
-    property  :persistentstoretype
-    property  :target
-    property  :targettype
+    newparam(:domain) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Domain name"
+    
+      defaultto 'default'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['domain']
+      end
+    
+    end
+    newparam(:name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      desc "The safagent name"
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['name']
+      end
+    
+    end
+    newparam(:safagent_name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The SAF agent name"
+    
+    end
+    newproperty(:servicetype) do
+      include EasyType
+    
+    
+      desc "The service type"
+      defaultto 'Both'
+    
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['servicetype']
+      end
+    
+    
+    end
+    newproperty(:persistentstore) do
+      include EasyType
+    
+      desc "The persistentstore name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['persistentstore']
+      end
+    
+    end
+    newproperty(:persistentstore) do
+      include EasyType
+    
+      desc "The persistentstore name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['persistentstore']
+      end
+    
+    end
+    newproperty(:target) do
+      include EasyType
+    
+      desc "The target name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['target']
+      end
+    
+    end
+    newproperty(:target) do
+      include EasyType
+    
+      desc "The target name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['target']
+      end
+    
+    end
 
   end
 end

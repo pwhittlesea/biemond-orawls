@@ -77,13 +77,100 @@ module Puppet
       ]
     end
 
-    parameter :domain
-    parameter :name
-    parameter :jmsmodule
-    parameter :foreign_server
-    parameter :object_name
-    property  :object_type
-    property  :remotejndiname
-    property  :localjndiname
+    newparam(:domain) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Domain name"
+    
+      defaultto 'default'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['domain']
+      end
+    
+    end
+    newparam(:name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      desc "The foreign server object name"
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['name']
+      end
+    
+    end
+    newparam(:jmsmodule) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The JMS module name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['jmsmodule']
+      end
+    
+    end
+    newparam(:foreign_server) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['foreign_server']
+      end
+    
+      desc "Foreign server name"
+    
+    end
+    newparam(:object_name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Foreign Server Object name"
+    
+    end
+    newproperty(:object_type) do
+      include EasyType
+    
+      desc "The object_type of a Foreign Server object "
+    
+      newvalues(:destination, :connectionfactory)
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['object_type']
+      end
+    
+    end
+    newproperty(:remotejndiname) do
+      include EasyType
+    
+      desc "The Remote JNDI of the Foreign server object "
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['remotejndiname']
+      end
+    
+    end
+    newproperty(:localjndiname) do
+      include EasyType
+    
+      desc "The Local JNDI of the Foreign server object "
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['localjndiname']
+      end
+    
+    end
   end
 end

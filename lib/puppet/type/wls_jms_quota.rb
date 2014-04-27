@@ -76,14 +76,100 @@ module Puppet
       ]
     end
 
-    parameter :domain
-    parameter :name
-    parameter :jmsmodule
-    parameter :quota_name
-    property  :bytesmaximum
-    property  :messagesmaximum
-    property  :policy
-    property  :shared
+    newparam(:domain) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Domain name"
+    
+      defaultto 'default'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['domain']
+      end
+    
+    end
+    newparam(:name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      desc "The quota name"
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['name']
+      end
+    
+    end
+    newparam(:jmsmodule) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The JMS module name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['jmsmodule']
+      end
+    
+    end
+    newparam(:quota_name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The quota name"
+    
+    end
+    newproperty(:bytesmaximum) do
+      include EasyType
+    
+      desc "Quota Bytes Maximum"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['bytesmaximum']
+      end
+    
+    end
+    newproperty(:messagesmaximum) do
+      include EasyType
+    
+      desc "Maximum messages"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['messagesmaximum']
+      end
+    
+    end
+    newproperty(:policy) do
+      include EasyType
+    
+      desc "policy name of the Quota"
+    
+      newvalues('FIFO','PREEMPTIVE')
+      
+      to_translate_to_resource do | raw_resource|
+        raw_resource['policy']
+      end
+    
+    end
+    newproperty(:shared) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      desc "Shared Quota"
+      newvalues(1, 0)
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['shared']
+      end
+    
+    end
 
   end
 end

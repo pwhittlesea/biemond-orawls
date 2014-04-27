@@ -76,14 +76,109 @@ module Puppet
       ]
     end
 
-    parameter :domain
-    parameter :name
-    parameter :jmsmodule
-    parameter :connection_factory_name
-    property  :jndiname
-    property  :subdeployment
-    property  :defaulttargeting
-    property  :transactiontimeout
-    property  :xaenabled
+    newparam(:domain) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Domain name"
+    
+      defaultto 'default'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['domain']
+      end
+    
+    end
+    newparam(:name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      desc "The CF name"
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+      	raw_resource['name']
+      end
+    
+    end
+    newparam(:jmsmodule) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The JMS module name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['jmsmodule']
+      end
+    
+    end
+    newparam(:connection_factory_name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The Connection Factory name"
+    
+    end
+    newproperty(:jndiname) do
+      include EasyType
+    
+      desc "The jndiname name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['jndiname']
+      end
+    
+    end
+    newproperty(:subdeployment) do
+      include EasyType
+    
+      desc "The subdeployment name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['subdeployment']
+      end
+    
+    end
+    newproperty(:defaulttargeting) do
+      include EasyType
+    
+      desc "default targeting enabled on the cf"
+      newvalues(1, 0)
+      defaultto 1
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['defaulttargeting']
+      end
+    
+    end
+    newproperty(:transactiontimeout) do
+      include EasyType
+    
+      desc "transaction timeout on the cf"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['transactiontimeout']
+      end
+    
+    end
+    newproperty(:xaenabled) do
+      include EasyType
+    
+      desc "xa enabled on the cf"
+      newvalues(1, 0)
+      defaultto 1
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['xaenabled']
+      end
+    
+    end
   end
 end

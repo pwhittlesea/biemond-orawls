@@ -77,18 +77,148 @@ module Puppet
       ]
     end
 
-    parameter :domain
-    parameter :name
-    parameter :jmsmodule
-    parameter :imported_destination
-    parameter :object_name
-    property  :object_type
-    property  :timetolivedefault
-    property  :usetimetolivedefault
-    property  :unitoforderrouting
-    property  :remotejndiname
-    property  :localjndiname
-    property  :nonpersistentqos
+    newparam(:domain) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Domain name"
+    
+      defaultto 'default'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['domain']
+      end
+    
+    end
+    newparam(:name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      desc "The SAF imported destination name"
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['name']
+      end
+    
+    end
+    newparam(:jmsmodule) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The JMS module name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['jmsmodule']
+      end
+    
+    end
+    newparam(:imported_destination) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['imported_destination']
+      end
+    
+    
+      desc "SAF imported destination name"
+    
+    end
+    newparam(:object_name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "SAF imported destination Object name"
+    
+    end
+    newproperty(:object_type) do
+      include EasyType
+    
+      desc "The object_type of the SAF imported destination object "
+    
+      newvalues(:queue, :topic)
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['object_type']
+      end
+    
+    end
+    newproperty(:timetolivedefault) do
+      include EasyType
+    
+      desc "the SAF time to live default of this SAF imported destination"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['timetolivedefault']
+      end
+    
+    end
+    newproperty(:usetimetolivedefault) do
+      include EasyType
+    
+      desc "use time to live default of this SAF imported destination"
+    
+      newvalues(1, 0)
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['usetimetolivedefault']
+      end
+    
+    end
+    newproperty(:unitoforderrouting) do
+      include EasyType
+    
+      desc "The unit of order routing of the SAF imported destination object "
+    
+      newvalues(:Hash, :PathService)
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['unitoforderrouting']
+      end
+    
+    end
+    newproperty(:remotejndiname) do
+      include EasyType
+    
+      desc "The Remote JNDI of the SAF imported destination object "
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['remotejndiname']
+      end
+    
+    end
+    newproperty(:localjndiname) do
+      include EasyType
+    
+      desc "The Local JNDI of the SAF imported destination object "
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['localjndiname']
+      end
+    
+    end
+    newproperty(:nonpersistentqos) do
+      include EasyType
+    
+      desc "The QoS non persistent of the SAF imported destination object "
+    
+      newvalues(:"Exactly-Once", :"At-Least-Once",:"At-Most-Once")
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['nonpersistentqos']
+      end
+    
+    end
 
   end
 end

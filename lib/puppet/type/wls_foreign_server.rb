@@ -76,17 +76,127 @@ module Puppet
       ]
     end
 
-    parameter :domain
-    parameter :name
-    parameter :jmsmodule
-    parameter :foreign_server_name
-    parameter :password
-    property  :subdeployment
-    property  :defaulttargeting
-    property  :extraproperties
-    property  :extrapropertiesvalues
-    property  :initialcontextfactory
-    property  :connectionurl
+    newparam(:domain) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Domain name"
+    
+      defaultto 'default'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['domain']
+      end
+    
+    end
+    newparam(:name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      desc "The foreign server name"
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['name']
+      end
+    
+    end
+    newparam(:jmsmodule) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The JMS module name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['jmsmodule']
+      end
+    
+    end
+    newparam(:foreign_server_name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Foreign Server name"
+    
+    end
+    newparam(:password) do
+      include EasyType
+    
+      desc "The Foreign Server user's password"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['password']
+      end
+    
+    end
+    newproperty(:subdeployment) do
+      include EasyType
+    
+      desc "The subdeployment name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['subdeployment']
+      end
+    
+    end
+    newproperty(:defaulttargeting) do
+      include EasyType
+    
+      desc "default targeting enabled"
+      newvalues(1, 0)
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['defaulttargeting']
+      end
+    
+    end
+    newproperty(:extraproperties) do
+      include EasyType
+    
+      desc "The extra foreign server properties"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['extraproperties']
+      end
+    
+    end
+    newproperty(:extraproperties) do
+      include EasyType
+    
+      desc "The extra foreign server properties"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['extraproperties']
+      end
+    
+    end
+    newproperty(:initialcontextfactory) do
+      include EasyType
+    
+      desc "The initial contextfactory"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['initialcontextfactory']
+      end
+    
+    end
+    newproperty(:connectionurl) do
+      include EasyType
+    
+      desc "The connectionurl"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['connectionurl']
+      end
+    
+    end
 
   end
 end

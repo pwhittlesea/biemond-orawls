@@ -75,23 +75,190 @@ module Puppet
       ]
     end
 
-    parameter :domain
-    parameter :name
-    parameter :datasource_name
+    newparam(:domain) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Domain name"
+    
+      defaultto 'default'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['domain']
+      end
+    
+    end
+    newparam(:name) do
+      include EasyType
+    
+      desc "The datasource name"
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['name']
+      end
+    
+    end
+    newparam(:datasource_name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The datasource  name"
+    
+    end
 
-    parameter :password
-    property  :target
-    property  :targettype
-    property  :jndinames
-    property  :drivername
-    property  :url
-    property  :usexa
-    property  :user
-    property  :testtablename
-    property  :globaltransactionsprotocol
-    property  :extraproperties
-    property  :extrapropertiesvalues
-    property  :maxcapacity
-    property  :initialcapacity
+    newparam(:password) do
+      include EasyType
+    
+      desc "The database user's password"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['password']
+      end
+    
+    end
+    newproperty(:target) do
+      include EasyType
+    
+      desc "The target name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['target']
+      end
+    
+    end
+    newproperty(:target) do
+      include EasyType
+    
+      desc "The target name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['target']
+      end
+    
+    end
+    newproperty(:jndinames) do
+      include EasyType
+    
+      desc "The datasource jndi names"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['jndinames']
+      end
+    
+    end
+    newproperty(:drivername) do
+      include EasyType
+    
+      desc "The drivername"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['drivername']
+      end
+    
+    end
+    newproperty(:url) do
+      include EasyType
+    
+      desc "The jdbc url"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['url']
+      end
+    
+    end
+    newproperty(:usexa) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      desc "The UseXaDataSourceInterface enabled on the jdbc driver"
+      newvalues(1, 0)
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['usexa']
+      end
+    
+    end
+    newproperty(:user) do
+      include EasyType
+    
+      desc "The datasource user name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['user']
+      end
+    
+    end
+    newproperty(:testtablename) do
+      include EasyType
+    
+      desc "The test table statement for the datasource"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['testtablename']
+      end
+    
+    end
+    newproperty(:globaltransactionsprotocol) do
+      include EasyType
+    
+      desc "The global Transactions Protocol"
+      newvalues('TwoPhaseCommit','EmulateTwoPhaseCommit','OnePhaseCommit','None')
+      defaultto 'TwoPhaseCommit'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['globaltransactionsprotocol']
+      end
+    
+    end
+    newproperty(:extraproperties) do
+      include EasyType
+    
+      desc "The extra datasource properties"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['extraproperties']
+      end
+    
+    end
+    newproperty(:extraproperties) do
+      include EasyType
+    
+      desc "The extra datasource properties"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['extraproperties']
+      end
+    
+    end
+    newproperty(:maxcapacity) do
+      include EasyType
+    
+      desc "The max capacity of the datasource"
+    
+      defaultto '15'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['maxcapacity']
+      end
+    
+    end
+    newproperty(:initialcapacity) do
+      include EasyType
+    
+      desc "The initial capacity of the datasource"
+    
+      defaultto '1'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['initialcapacity']
+      end
+    
+    end
   end
 end

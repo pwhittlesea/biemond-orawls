@@ -76,12 +76,81 @@ module Puppet
       ]
     end
 
-    parameter :domain
-    parameter :name
-    parameter :group_name
-    property  :realm
-    property  :authenticationprovider
-    property  :users
-    property  :description
+    newparam(:domain) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Domain name"
+    
+      defaultto 'default'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['domain']
+      end
+    
+    end
+    newparam(:name) do
+      include EasyType
+    
+      desc "The group name"
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['name']
+      end
+    
+    end
+    newparam(:group_name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The group name"
+    
+    end
+    newproperty(:realm) do
+      include EasyType
+    
+      desc "The security realm of the domain"
+      
+      to_translate_to_resource do | raw_resource|
+        raw_resource['realm']
+      end
+    
+    end
+    newproperty(:authenticationprovider) do
+      include EasyType
+    
+      desc "The security authentication providers of the domain"
+      
+      to_translate_to_resource do | raw_resource|
+        raw_resource['authenticationprovider']
+      end
+    
+    end
+    newproperty(:users) do
+      include EasyType
+    
+      desc "The users of a group"
+      
+      to_translate_to_resource do | raw_resource|
+        raw_resource['users']
+      end
+    
+    end
+    newproperty(:description) do
+      include EasyType
+    
+      desc "The group description"
+      
+      to_translate_to_resource do | raw_resource|
+        raw_resource['description']
+      end
+    
+    end
   end
 end

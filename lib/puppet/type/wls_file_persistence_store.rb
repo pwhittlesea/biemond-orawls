@@ -75,11 +75,72 @@ module Puppet
       ]
     end
 
-    parameter :domain
-    parameter :name
-    parameter :file_persistence_name
-    property  :directory
-    property  :target
-    property  :targettype
+    newparam(:domain) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Domain name"
+    
+      defaultto 'default'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['domain']
+      end
+    
+    end
+    newparam(:name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      desc "The file persistence name"
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['name']
+      end
+    
+    end
+    newparam(:file_persistence_name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The file persistence name"
+    
+    end
+    newproperty(:directory) do
+      include EasyType
+    
+      desc "The file persistent store directory name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['directory']
+      end
+    
+    end
+    newproperty(:target) do
+      include EasyType
+    
+      desc "The target name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['target']
+      end
+    
+    end
+    newproperty(:target) do
+      include EasyType
+    
+      desc "The target name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['target']
+      end
+    
+    end
   end
 end

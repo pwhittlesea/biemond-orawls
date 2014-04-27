@@ -76,12 +76,90 @@ module Puppet
       ]
     end
 
-    parameter :domain
-    parameter :name
-    parameter :jmsmodule
-    parameter :error_handler_name
-    property  :errordestination
-    property  :logformat
-    property  :policy
+    newparam(:domain) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "Domain name"
+    
+      defaultto 'default'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['domain']
+      end
+    
+    end
+    newparam(:name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      desc "The SAF Error handler name"
+    
+      isnamevar
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['name']
+      end
+    
+    end
+    newparam(:jmsmodule) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "The JMS module name"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['jmsmodule']
+      end
+    
+    end
+    newparam(:error_handler_name) do
+      include EasyType
+      include EasyType::Validators::Name
+    
+      isnamevar
+    
+      desc "SAF error handler name"
+    
+    end
+    newproperty(:errordestination) do
+      include EasyType
+    
+      desc "errordestination of the queue"
+    
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['errordestination']
+      end
+    
+    end
+    newproperty(:logformat) do
+      include EasyType
+    
+      desc "logformat of the SAF imported destination"
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['logformat']
+      end
+    
+    end
+    newproperty(:policy) do
+      include EasyType
+    
+      desc "policy of the SAF imported destination"
+    
+      newvalues(:'Discard', :'Log',:'Redirect',:'Always-forward')
+    
+      defaultto 'Discard'
+    
+      to_translate_to_resource do | raw_resource|
+        raw_resource['policy']
+      end
+    
+    end
   end
 end
